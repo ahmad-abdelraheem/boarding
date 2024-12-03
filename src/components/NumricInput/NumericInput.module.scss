@@ -2,12 +2,13 @@
   display: flex;
   width: fit-content;
   border: 1px solid black;
-  border-radius: 5px;
+  border-radius: 10px;
+  
 }
 
 .number {
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   text-align: center;
   border: none;
   outline: none;
@@ -16,9 +17,10 @@
 
 .nextButton,
 .prevButton {
-  width: 25px;
-  height: 30px;
+  width: 30px;
+  height: 35px;
   background-color: transparent;
   border: none;
   font-size: 20px;
 }
+

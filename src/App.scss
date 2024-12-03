@@ -7,9 +7,9 @@
     overflow-y: auto;
     font-family: $font-family;
     
-    > *:last-child { // Page
+    > *:nth-child(2) { // Page
         margin-top: 60px;
-        padding: 10px;
+        padding: 20px;
         margin-bottom: 30px;
     }
 }

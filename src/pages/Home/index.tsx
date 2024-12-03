@@ -5,6 +5,8 @@ import OptionGroup from "../../components/OptionGroup";
 import ProductDescription from "../../components/ProductDescription";
 import { Product } from "../../types";
 import NumericInput from "../../components/NumricInput";
+import BuyNowButton from "../../components/ButtonBuyNow";
+import style from "./Home.module.scss";
 
 const Home = () => {
   const items = [
@@ -55,13 +57,14 @@ const Home = () => {
     }
   };
 
+
   return (
     <div>
       <div>
         <ImageCarousel items={items} interval={3000} activeIndex={0} />
       </div>
       <h1>سكرو ({products[selection].name})</h1>
-      <span className="price">{products[selection].price} د.أ</span>
+      <span className={style.price}>{products[selection].price} د.أ</span>
       <InfoBlock>
         <div>
           <svg
@@ -99,7 +102,10 @@ const Home = () => {
         <h2>اكثر من خيار، شو بناسبك؟</h2>
       </OptionGroup>
       <ProductDescription product={products[selection]} />
-      <NumericInput value={quantity} increment={quantityIncrement} decrement={quantityDecrement}/>
+      <div className={style.checkoutBlock}>
+        <NumericInput value={quantity} increment={quantityIncrement} decrement={quantityDecrement}/>
+        <BuyNowButton />
+      </div>
     </div>
   );
 };
