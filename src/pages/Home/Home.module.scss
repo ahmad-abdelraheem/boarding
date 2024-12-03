@@ -8,3 +8,11 @@
   font-weight: bold;
   color: $primary-color;
 }
+
+.checkoutBlock{
+  height: 35px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: nowrap;
+}
