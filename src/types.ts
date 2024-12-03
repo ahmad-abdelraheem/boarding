@@ -3,4 +3,5 @@ export interface Product {
   price: number;
   description: string[];
   features: string[];
+  imagePath: string;
 }
