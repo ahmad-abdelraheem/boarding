@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import ImageCarousel from "../../components/ImageViewer";
 import InfoBlock from "../../components/InfoBlock";
 import OptionGroup from "../../components/OptionGroup";
-import style from "./Home.module.scss";
 import ProductDescription from "../../components/ProductDescription";
 import { Product } from "../../types";
 import NumericInput from "../../components/NumricInput";

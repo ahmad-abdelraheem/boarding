@@ -1,7 +1,6 @@
 // style
 import style from "./Header.module.scss";
 // Routing
-import { NavLink } from "react-router-dom";
 
 const Header = () => {
   return (

@@ -1,4 +1,3 @@
-import { Children, useState } from "react";
 import style from "./OptionGroup.module.scss";
 
 const OptionGroup = ({
