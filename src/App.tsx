@@ -14,6 +14,7 @@ function App() {
         <Route path="/" Component={Home}></Route>
         <Route path="/checkout" Component={Checkout}></Route>
         <Route path="/about" Component={About}></Route>
+        {/*add footer here*/}
       </Routes>
     </div>
   );

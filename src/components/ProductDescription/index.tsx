@@ -1,10 +1,10 @@
 import { Product } from "../../types";
-
+import style from "./ProductDescription.module.scss"
 const ProductDescription = ({ product }: DefaultProps) => {
   return (
-    <div>
+    <div className={style.productDescription}>
       <h2>وصف المنتج</h2>
-      <ul>
+      <ul className={style.description}>
         {product.description.map((item, index) => (
           <li key={`description-item-${index}`}>{item}</li>
         ))}
