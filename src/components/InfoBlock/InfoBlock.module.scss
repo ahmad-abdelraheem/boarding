@@ -1,0 +1,23 @@
+@import "../../variables.scss";
+
+.infoBlock {
+    border: 1px solid $primary-color;
+    border-width: 1px 0;
+  }
+  
+  .infoItem {
+    padding: 10px 5px;
+    border-bottom: 1px solid $primary-color;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  
+    svg {
+      width: 20px;
+    }
+
+    &:last-child {
+        border-bottom: 0;
+    }
+  }
+  

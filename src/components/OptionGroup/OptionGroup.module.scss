@@ -1,0 +1,43 @@
+@import "../../variables.scss";
+
+.optionsGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.option {
+  display: flex;
+  gap: 5px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid $primary-color;
+  border-radius: 15px;
+  min-height: 60px;
+  color: $primary-color;
+
+  &.selected {
+    box-shadow: $box-shadow;
+  }
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  .name {
+    font-weight: bold;
+    font-size: 18px;
+  }
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 14px;
+}

@@ -1,0 +1,13 @@
+@import "../../variables.scss";
+
+.carousel {
+}
+
+.carouselItem {
+    position: relative;
+    
+    img {
+        box-shadow: $box-shadow;
+        width: 100%;
+    }
+}
