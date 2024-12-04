@@ -1,4 +1,5 @@
 import Cart from "../../components/Cart";
+import { useProductContext } from "../../context/ProductContext";
 import { Product } from "../../types";
 
 const Checkout = () => {
@@ -16,10 +17,12 @@ const Checkout = () => {
       imagePath: "",
     },
   ];
+  const {quantity} = useProductContext();
 
   return (
     <div>
-      <Cart products={product} />
+      {/* <Cart products={product} /> */}
+      {quantity}
     </div>
   );
 };

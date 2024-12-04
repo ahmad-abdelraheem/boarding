@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ImageCarousel from "../../components/ImageViewer";
 import InfoBlock from "../../components/InfoBlock";
 import OptionGroup from "../../components/OptionGroup";
 import ProductDescription from "../../components/ProductDescription";
 import { Product } from "../../types";
-import NumericInput from "../../components/NumricInput";
 import BuyNowButton from "../../components/ButtonBuyNow";
 import style from "./Home.module.scss";
 import SocialLinks from "../../components/SocialLinks";
+import { useProductContext } from "../../context/ProductContext";
+import NumricInput from "../../components/NumricInput";
 
 const Home = () => {
   const items = [
@@ -41,8 +42,7 @@ const Home = () => {
       imagePath: ""
     },
   ];
-  const [selection, setSelection] = useState(0);
-  const [quantity, setQuantity] = useState(1);
+  const {selection, setSelection, quantity, setQuantity} = useProductContext();
 
   useEffect(() => {}, [selection]);
   const selectionHandler = (index: number) => {
@@ -64,8 +64,8 @@ const Home = () => {
       <div>
         <ImageCarousel items={items} interval={3000} activeIndex={0} />
       </div>
-      <h1>سكرو ({products[selection].name})</h1>
-      <span className={style.price}>{products[selection].price} د.أ</span>
+      <h1>سكرو ({products[selection]?.name})</h1>
+      <span className={style.price}>{products[selection]?.price} د.أ</span>
       <InfoBlock>
         <div>
           <svg
@@ -106,7 +106,7 @@ const Home = () => {
       </OptionGroup>
       <ProductDescription product={products[selection]} />
       <div className={style.checkoutBlock}>
-        <NumericInput value={quantity} increment={quantityIncrement} decrement={quantityDecrement}/>
+        <NumricInput value={quantity} increment={quantityIncrement} decrement={quantityDecrement}/>
         <BuyNowButton />
       </div>
     </div>

@@ -1,6 +1,6 @@
-import style from "./NumericInput.module.scss";
+import style from "./NumricInput.module.scss";
 
-const NumericInput = ({ value, increment, decrement }: DefaultProps) => {
+const NumricInput = ({ value, increment, decrement }: DefaultProps) => {
   return (
     <div className={style.numericContainer}>
       <button onClick={() => increment()} className={style.nextButton}>+</button>
@@ -16,4 +16,4 @@ interface DefaultProps {
   decrement: Function;
 }
 
-export default NumericInput;
+export default NumricInput;

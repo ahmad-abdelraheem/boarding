@@ -14,4 +14,5 @@ const Cart = ({ products }: DefaultProps) => {
 interface DefaultProps {
   products: Product[];
 }
+
 export default Cart;
