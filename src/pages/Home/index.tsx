@@ -26,6 +26,7 @@ const Home = () => {
         "تقدر تلعبها فردي او اتنين ضد اتنين.",
         "تحتوي على ٦٦ كارت.",
       ],
+      imagePath: ""
     },
     {
       name: "صاحب صاحبه",
@@ -37,6 +38,7 @@ const Home = () => {
         "66 كرت",
         "علبة جديدة بتصميم مرتب",
       ],
+      imagePath: ""
     },
   ];
   const [selection, setSelection] = useState(0);
