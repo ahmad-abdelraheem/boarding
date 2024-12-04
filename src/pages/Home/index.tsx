@@ -5,7 +5,7 @@ import OptionGroup from "../../components/OptionGroup";
 import ProductDescription from "../../components/ProductDescription";
 import { Product } from "../../types";
 import NumericInput from "../../components/NumricInput";
-import BuyNowButton from "../../components/ButtonBuyNow";
+import Button from "../../components/Button";
 import style from "./Home.module.scss";
 import SocialLinks from "../../components/SocialLinks";
 
@@ -107,7 +107,7 @@ const Home = () => {
       <ProductDescription product={products[selection]} />
       <div className={style.checkoutBlock}>
         <NumericInput value={quantity} increment={quantityIncrement} decrement={quantityDecrement}/>
-        <BuyNowButton />
+        <Button handler={console.error} className={style.buyBtn}  placeHolder="اطلب الان" />
       </div>
     </div>
   );
