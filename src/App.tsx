@@ -1,5 +1,7 @@
 // Components
 import Header from "./components/Header";
+import Footer from "./components/Footer"
+
 // Routing 
 import { About, Checkout, Home } from "./pages/routes";
 import { Route, Routes } from "react-router-dom";
@@ -14,10 +16,10 @@ function App() {
         <Route path="/" Component={Home}></Route>
         <Route path="/checkout" Component={Checkout}></Route>
         <Route path="/about" Component={About}></Route>
-        {/*add footer here*/}
       </Routes>
+      <Footer/>
     </div>
   );
-}
+} 
 
 export default App;

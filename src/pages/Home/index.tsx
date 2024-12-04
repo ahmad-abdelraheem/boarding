@@ -7,6 +7,7 @@ import { Product } from "../../types";
 import NumericInput from "../../components/NumricInput";
 import BuyNowButton from "../../components/ButtonBuyNow";
 import style from "./Home.module.scss";
+import SocialLinks from "../../components/SocialLinks";
 
 const Home = () => {
   const items = [
@@ -93,7 +94,9 @@ const Home = () => {
           </svg>
           <span>الدفع عند الاستلام.</span>
         </div>
+        
       </InfoBlock>
+      <SocialLinks />
       <OptionGroup
         selectedOption={selection}
         options={products}
