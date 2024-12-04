@@ -4,7 +4,8 @@ import InfoBlock from "../../components/InfoBlock";
 import OptionGroup from "../../components/OptionGroup";
 import ProductDescription from "../../components/ProductDescription";
 import { Product } from "../../types";
-import BuyNowButton from "../../components/ButtonBuyNow";
+import NumericInput from "../../components/NumricInput";
+import Button from "../../components/Button";
 import style from "./Home.module.scss";
 import SocialLinks from "../../components/SocialLinks";
 import { useProductContext } from "../../context/ProductContext";
@@ -106,8 +107,8 @@ const Home = () => {
       </OptionGroup>
       <ProductDescription product={products[selection]} />
       <div className={style.checkoutBlock}>
-        <NumricInput value={quantity} increment={quantityIncrement} decrement={quantityDecrement}/>
-        <BuyNowButton />
+        <NumericInput value={quantity} increment={quantityIncrement} decrement={quantityDecrement}/>
+        <Button handler={console.error} className={style.buyBtn}  placeHolder="اطلب الان" />
       </div>
     </div>
   );
