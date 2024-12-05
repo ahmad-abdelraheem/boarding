@@ -15,9 +15,9 @@ function App() {
       <Header />
       <ProductProvider>
         <Routes>
-          <Route path="/" Component={Home}></Route>
+          <Route path="/temp" Component={Home}></Route>
           <Route path="/checkout" Component={Checkout}></Route>
-          <Route path="/about" Component={About}></Route>
+          <Route path="/" Component={About}></Route>
         </Routes>
       </ProductProvider>
       <Footer />
