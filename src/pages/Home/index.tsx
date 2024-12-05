@@ -10,6 +10,7 @@ import style from "./Home.module.scss";
 import SocialLinks from "../../components/SocialLinks";
 import { useProductContext } from "../../context/ProductContext";
 import NumricInput from "../../components/NumricInput";
+import { ProductService } from "../../service/ProductService";
 
 const Home = () => {
   const items = [
@@ -17,32 +18,7 @@ const Home = () => {
     "https://storage.googleapis.com/bosta-files/products_images/NjIyOTQzX18yMDI0LTExLTA0VDE0OjE5OjI3LjY2NVpfMi5qcGc=.jpg",
     "https://storage.googleapis.com/bosta-files/products_images/OTQyMjZfXzIwMjQtMDgtMTdUMTc6NDI6MTUuNDMyWl8oMikuanBn.jpg",
   ];
-  const products: Product[] = [
-    {
-      name: "نسخة الجيب",
-      price: 8,
-      features: ["66 كرت", "علبة بحجم الجيب"],
-      description: [
-        "النسخة الشاملة ( الكلاسيك - الحرامي - صاحب صاحبة",
-        "علبة جديدة بحجم الجيب علشان تكون معاك في كل مكان.",
-        "تقدر تلعبها فردي او اتنين ضد اتنين.",
-        "تحتوي على ٦٦ كارت.",
-      ],
-      imagePath: ""
-    },
-    {
-      name: "صاحب صاحبه",
-      price: 10,
-      features: ["66 كرت", "بكج مميز", "3 كروت جديدة"],
-      description: [
-        "بتقدر تلعبها 2 ضد 2 أو بشكل فردي",
-        "3 كروت جديدة",
-        "66 كرت",
-        "علبة جديدة بتصميم مرتب",
-      ],
-      imagePath: ""
-    },
-  ];
+  const products: Product[] = ProductService._constructor().Products;
   const {selection, setSelection, quantity, setQuantity} = useProductContext();
 
   useEffect(() => {}, [selection]);
