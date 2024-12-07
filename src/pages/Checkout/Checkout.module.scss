@@ -1,0 +1,61 @@
+@import "../../variables.scss";
+
+.cartItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 100px;
+
+  .productImage {
+    height: 100%;
+  }
+}
+
+.submitForm {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 20px;
+  justify-items: center;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+
+  input,
+  select {
+    background-color: transparent;
+    border: 1px solid $primary-color;
+    height: 30px;
+    border-radius: 5px;
+    outline: none;
+    padding-right: 5px;
+  }
+
+  option {
+    background-color: $light-primary-color;
+    color: white;
+  }
+
+  option::selection {
+    background-color: $primary-color;
+  }
+}
+
+.receiptDetails {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid $light-primary-color;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+}
+
+.receiptItem {
+  display: flex;
+  justify-content: space-between;
+}
+
+.invalidInput  {
+    border-color: red !important;
+}

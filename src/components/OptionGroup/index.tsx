@@ -1,3 +1,4 @@
+import { Product } from "../../types";
 import style from "./OptionGroup.module.scss";
 
 const OptionGroup = ({
@@ -12,7 +13,7 @@ const OptionGroup = ({
       {options.map((option, index) => (
         <div
           className={`${style.option} ${
-            index === selectedOption ? style.selected : ""
+            option.id === selectedOption ? style.selected : ""
           }`}
           key={`option-${index}`}
           onClick={() => selectHandler(index)}
@@ -35,15 +36,10 @@ const OptionGroup = ({
 };
 
 interface DefaultProps {
-  options: Option[];
+  options: Product[];
   selectedOption: number;
   selectHandler: Function;
   children: React.ReactNode;
 }
 
-interface Option {
-  name: string;
-  features: string[];
-  price: number;
-}
 export default OptionGroup;

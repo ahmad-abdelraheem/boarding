@@ -1,0 +1,33 @@
+@import "../../variables.scss";
+
+
+.about{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    ul{
+        padding-right: 25px;
+    }
+}
+
+.mainText{
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    color: $primary-color;
+}
+
+#title{
+    border: solid 1px $primary-color;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.linkContainer {
+    display: flex;
+    justify-content: center;
+    
+    > a { // Link tag
+        width: 250px;
+    }
+}

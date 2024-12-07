@@ -16,8 +16,9 @@ function App() {
       <ProductProvider>
         <Routes>
           <Route path="/" Component={Home}></Route>
+          <Route path="/home" Component={Home}></Route>
           <Route path="/checkout" Component={Checkout}></Route>
-          <Route path="/about" Component={About}></Route>
+          <Route path="/game-rules" Component={About}></Route>
         </Routes>
       </ProductProvider>
       <Footer />
