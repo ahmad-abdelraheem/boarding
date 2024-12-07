@@ -5,7 +5,7 @@ const ProductDescription = ({ product }: DefaultProps) => {
     <div className={style.productDescription}>
       <h2>وصف المنتج</h2>
       <ul className={style.description}>
-        {product.description.map((item, index) => (
+        {product?.description.map((item, index) => (
           <li key={`description-item-${index}`}>{item}</li>
         ))}
       </ul>
