@@ -9,7 +9,6 @@ const Footer = () => {
 
       <section className={style.contactInfo}>
         <p>Telephone: 123-456-789</p>
-
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="currentColor"

@@ -1,7 +1,7 @@
 @import "../../variables.scss";
 
 
-footer{
+footer {
     height: 150px;
     width: 100vw;
     display: flex;
@@ -15,34 +15,35 @@ footer{
 
 }
 
-section{
-    color:$background-color;
+.footer section {
+    color: $background-color;
     display: flex;
     flex-direction: row;
-    align-items: center ;
+    align-items: center;
     gap: 5px;
     width: 100%;
 
     &:first-child {
         border-bottom: 1px solid $background-color;
         border-width: 1px 0;
-       
+
     }
-    svg{
+
+    svg {
         width: 18px;
     }
 }
 
-.footerTitle{
+.footerTitle {
     justify-content: center;
 }
 
-.copyrights, 
-.contactInfo, 
-.credits{
+.copyrights,
+.contactInfo,
+.credits {
     justify-content: end;
 }
 
-.credits{
+.credits {
     font-size: 12px;
 }

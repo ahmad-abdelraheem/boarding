@@ -6,10 +6,16 @@
     height: 100vh;
     overflow-y: auto;
     font-family: $font-family;
+    display: grid;
+    grid-template-rows: 1fr 150px;
+
     
     > *:nth-child(2) { // Page
         margin-top: 60px;
         padding: 20px;
         margin-bottom: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px
     }
 }

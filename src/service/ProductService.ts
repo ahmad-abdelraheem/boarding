@@ -26,6 +26,7 @@ export class ProductService {
           "تقدر تلعبها فردي او اتنين ضد اتنين.",
           "تحتوي على ٦٦ كارت.",
         ],
+        image: "https://storage.googleapis.com/bosta-files/products_images/NTcwNjEyX18yMDI0LTExLTA0VDE0OjE5OjIyLjYzN1pfMTAuanBn.jpg",
       },
       {
         id: 1,
@@ -38,6 +39,8 @@ export class ProductService {
           "66 كرت",
           "علبة جديدة بتصميم مرتب",
         ],
+        image:
+          "https://storage.googleapis.com/bosta-files/products_images/OTQyMjZfXzIwMjQtMDgtMTdUMTc6NDI6MTUuNDMyWl8oMikuanBn.jpg",
       },
     ];
   }

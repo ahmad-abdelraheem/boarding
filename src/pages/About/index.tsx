@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
 import style from "./About.module.scss";
 
 const About = () => {
   return (
     <div className={style.about}>
       <h1 className={style.mainText} id={style.title}>قواعد اللعبه</h1>
-      <iframe width="100%" height="315" src="https://www.youtube.com/embed/2YIK3mao5io?si=bTh9gpWMLXqvgFvX" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <iframe width="100%" height="315" src="https://www.youtube.com/embed/2YIK3mao5io?si=bTh9gpWMLXqvgFvX" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" ></iframe>
       <h3  className={style.mainText}>جاهزين للتحدي؟ 😎</h3>
       <div>
         <h3>شرح اللعب 👇 </h3>
@@ -72,7 +73,9 @@ const About = () => {
         </ul>
       </div>
 
-      
+      <div className={style.linkContainer}>
+        <Link to={"/"} className="btn btn-primary">اشتري الان</Link>
+      </div>
     </div>
   );
 };
