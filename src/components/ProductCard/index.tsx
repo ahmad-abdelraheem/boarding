@@ -1,10 +1,10 @@
 import { Product } from "../../types";
 import style from './ProductCard.module.scss';
 
-const ProductCard = ({product, quantity}: DefaultProps) => {
+const ProductCard = ({product}: DefaultProps) => {
     return (
         <div className={style.productCard}>
-            <img src={product.imagePath} alt={`${product.name} image`} />
+            <img src={product.image} alt={`${product.name} image`} />
             <div className={style.details}>
                 <h3>{product.name}</h3>
                 <span className={style.price}>{product.price} د.أ</span>
@@ -15,7 +15,6 @@ const ProductCard = ({product, quantity}: DefaultProps) => {
 
 interface DefaultProps {
     product: Product;
-    quantity: number;
 }
 
 export default ProductCard;

@@ -94,6 +94,7 @@ const Home = () => {
               value={quantity}
               increment={quantityIncrement}
               decrement={quantityDecrement}
+              removeWhenZero={false}
             />
             <Link className="btn btn-primary" to={"/checkout"}>
               اطلب الان

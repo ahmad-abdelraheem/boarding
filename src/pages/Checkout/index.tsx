@@ -46,7 +46,7 @@ const Checkout = () => {
   };
 
   // Phone number validation function
-  const validatePhoneNumber = (phone) => {
+  const validatePhoneNumber = (phone: string) => {
     const localPhonePattern = /^07[789]\d{7}$/; // Matches 07 followed by 7, 8, or 9 and 7 more digits
     const internationalPhonePattern = /^(00962|\+962)[7-9]\d{7}$/; // Matches +962 or 00962 followed by 7, 8, or 9 and 7 more digits
 
@@ -86,9 +86,17 @@ const Checkout = () => {
     return isValid;
   };
 
-  // Handle input change and validate
-  const handleChange = (e, field) => {
-    const { value } = e.target;
+  /**
+   * Handles input change and validates the field.
+   * @param e the event, should be of type React.ChangeEvent<HTMLInputElement>
+   * @param field the name of the field to update and validate
+   * @returns void
+   */
+  const handleChange = (
+    e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>,
+    field: "name" | "phone" | "city" | "region"
+  ): void => {
+    const value: string = e.target.value;
     if (field === "name") setName(value);
     if (field === "phone") setPhone(value);
     if (field === "city") setCity(value);
@@ -101,14 +109,19 @@ const Checkout = () => {
   };
 
   // Handle blur and validate
-  const handleBlur = (field) => {
+  const handleBlur = (field: string) => {
     setTouched((prev) => ({ ...prev, [field]: true }));
 
     // Validate on blur if field is invalid
     validateForm();
   };
 
-  const handleSubmit = (e) => {
+  /**
+   * Handles form submission and validates the form before submission.
+   * @param e the React.FormEvent<HTMLFormElement> event
+   * @returns void
+   */
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
 
     if (validateForm()) {

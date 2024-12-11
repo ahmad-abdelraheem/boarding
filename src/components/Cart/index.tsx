@@ -5,7 +5,7 @@ const Cart = ({ products }: DefaultProps) => {
   return (
     <>
       {products.map((product: Product, index: number) => (
-        <ProductCard product={product} key={`product-${index}`} quantity={1} />
+        <ProductCard product={product} key={`product-${index}`} />
       ))}
     </>
   );
