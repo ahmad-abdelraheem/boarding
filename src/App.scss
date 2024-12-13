@@ -3,11 +3,12 @@
 
 .App {
     background-color: $background-color;
-    height: 100vh;
-    overflow-y: auto;
-    font-family: $font-family;
     display: grid;
+    font-family: $font-family;
     grid-template-rows: 1fr 150px;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
 
     
     > *:nth-child(2) { // Page
