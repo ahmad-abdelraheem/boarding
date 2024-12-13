@@ -19,6 +19,7 @@ function App() {
           <Route path="/home" Component={Home}></Route>
           <Route path="/checkout" Component={Checkout}></Route>
           <Route path="/game-rules" Component={About}></Route>
+          <Route path="/*" Component={Home}></Route>
         </Routes>
       </ProductProvider>
       <Footer />
