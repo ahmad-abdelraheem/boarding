@@ -120,11 +120,10 @@ const Checkout = () => {
    * @param e the React.FormEvent<HTMLFormElement> event
    * @returns void
    */
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
+  const handleSubmit = (): void => {
     if (validateForm()) {
-      // Handle form submission (e.g., save data, make API call)
-      console.log("Form submitted successfully!");
+      // TODO : Call the API here to post the order
+      console.warn("Form is submitted, but no API call is made");
     }
   };
 
@@ -146,13 +145,9 @@ const Checkout = () => {
 
         <CheckoutForm
           name={name}
-          setName={setName}
           phone={phone}
-          setPhone={setPhone}
           city={city}
-          setCity={setCity}
           region={region}
-          setRegion={setRegion}
           errors={errors}
           touched={touched}
           handleChange={handleChange}
@@ -179,7 +174,7 @@ const Checkout = () => {
           </div>
         </section>
 
-        <button type="submit" className="btn btn-primary" disabled>
+        <button type="submit" className="btn btn-primary" onClick={handleSubmit} disabled>
           تأكيد الطلب
         </button>
         <span className="error-msg">الطلب غير متوفر حاليا، سيتم توفير المنتج في اقرب وقت</span>

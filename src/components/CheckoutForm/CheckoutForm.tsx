@@ -1,15 +1,10 @@
-import React from "react";
 import style from "../../pages/Checkout/Checkout.module.scss";
 
 interface CheckoutFormProps {
   name: string;
-  setName: React.Dispatch<React.SetStateAction<string>>;
   phone: string;
-  setPhone: React.Dispatch<React.SetStateAction<string>>;
   city: string;
-  setCity: React.Dispatch<React.SetStateAction<string>>;
   region: string;
-  setRegion: React.Dispatch<React.SetStateAction<string>>;
   errors: {
     name: string;
     phone: string;
@@ -31,13 +26,9 @@ interface CheckoutFormProps {
 
 const CheckoutForm: React.FC<CheckoutFormProps> = ({
   name,
-  setName,
   phone,
-  setPhone,
   city,
-  setCity,
   region,
-  setRegion,
   errors,
   touched,
   handleChange,
