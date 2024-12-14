@@ -9,6 +9,8 @@ import SocialLinks from "../../components/SocialLinks";
 import { useProductContext } from "../../context/ProductContext";
 import { ProductService } from "../../service/ProductService";
 import { Link } from "react-router-dom";
+import cx from "classnames";
+import { useEffect, useState } from "react";
 
 const Home = () => {
   const items = [
@@ -20,26 +22,33 @@ const Home = () => {
   const { selection, setSelection, quantity, setQuantity } =
     useProductContext();
 
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 600);
+  useEffect(() => {
+    console.log("isDesktop effect");
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth > 600);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const selectionHandler = (index: number) => {
     setSelection(index);
   };
-
   const quantityIncrement = () => {
     setQuantity(quantity + 1);
   };
-
   const quantityDecrement = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
     }
   };
 
-  return (
-    <div>
-      <section className="page-section">
-        <ImageCarousel items={items} interval={3000} activeIndex={0} />
-      </section>
-      <section className="page-section">
+  const productContent = (
+    <>
+      <section className={cx(style.productInfo, "page-section")}>
         <h1>سكرو ({products[selection]?.name})</h1>
         <span className={style.price}>{products[selection]?.price} د.أ</span>
         <InfoBlock>
@@ -72,10 +81,10 @@ const Home = () => {
           </div>
         </InfoBlock>
       </section>
-      <section className="page-section">
+      <section className={cx(style.socialLinks, "page-section")}>
         <SocialLinks />
       </section>
-      <section className="page-section">
+      <section className={cx(style.options, "page-section")}>
         <OptionGroup
           selectedOption={selection}
           options={products}
@@ -84,27 +93,54 @@ const Home = () => {
           <h2>اكثر من خيار، شو بناسبك؟</h2>
         </OptionGroup>
       </section>
-      <section className="page-section">
+      <section className={cx(style.description, "page-section")}>
         <ProductDescription product={products[selection]} />
       </section>
-      <section className="page-section">
-        <div className={style.checkoutBlock}>
-          <div>
-            <NumericInput
-              value={quantity}
-              increment={quantityIncrement}
-              decrement={quantityDecrement}
-              removeWhenZero={false}
-            />
-            <Link className="btn btn-primary" to={"/checkout"}>
-              اطلب الان
-            </Link>
-          </div>
-          <Link className="btn btn-primary-outline" to={"/game-rules"}>
-            قوانين اللعبة
+    </>
+  );
+  const checkoutBlock = (
+    <section className={cx(style.checkout, "page-section")}>
+      <div className={style.checkoutBlock}>
+        <div>
+          <NumericInput
+            value={quantity}
+            increment={quantityIncrement}
+            decrement={quantityDecrement}
+            removeWhenZero={false}
+          />
+          <Link className="btn btn-primary" to={"/checkout"}>
+            اطلب الان
           </Link>
         </div>
-      </section>
+        <Link className="btn btn-primary-outline" to={"/game-rules"}>
+          قوانين اللعبة
+        </Link>
+      </div>
+    </section>
+  );
+  const slider = (
+    <section className={cx(style.slider, "page-section")}>
+      <ImageCarousel items={items} interval={3000} activeIndex={0} />
+    </section>
+  );
+
+
+  return (
+    <div className={style.home}>
+      {isDesktop ? (
+        <>
+          <div className={style.rightSide}>{productContent}</div>
+          <div className={style.leftSide}>
+            {slider} {checkoutBlock}
+          </div>
+        </>
+      ) : (
+        <>
+          {slider}
+          {productContent}
+          {checkoutBlock}
+        </>
+      )}
     </div>
   );
 };
