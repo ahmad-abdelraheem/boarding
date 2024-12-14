@@ -1,5 +1,11 @@
 @import "../../variables.scss";
 
+.checkout {
+  max-width: 600px;
+  width: 100%;
+  justify-self: center;
+}
+
 .cartItem {
   display: flex;
   flex-direction: row;

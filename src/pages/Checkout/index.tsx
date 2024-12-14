@@ -4,6 +4,7 @@ import { useProductContext } from "../../context/ProductContext";
 import { ProductService } from "../../service/ProductService";
 import { useNavigate } from "react-router-dom";
 import style from "./Checkout.module.scss";
+import CheckoutForm from "../../components/CheckoutForm/CheckoutForm";
 
 const Checkout = () => {
   const { quantity, setQuantity, selection } = useProductContext();
@@ -86,6 +87,12 @@ const Checkout = () => {
     return isValid;
   };
 
+  // Handle blur and validate
+  const handleBlur = (field: string) => {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+    validateForm();
+  };
+
   /**
    * Handles input change and validates the field.
    * @param e the event, should be of type React.ChangeEvent<HTMLInputElement>
@@ -108,14 +115,6 @@ const Checkout = () => {
     }
   };
 
-  // Handle blur and validate
-  const handleBlur = (field: string) => {
-    setTouched((prev) => ({ ...prev, [field]: true }));
-
-    // Validate on blur if field is invalid
-    validateForm();
-  };
-
   /**
    * Handles form submission and validates the form before submission.
    * @param e the React.FormEvent<HTMLFormElement> event
@@ -123,7 +122,6 @@ const Checkout = () => {
    */
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-
     if (validateForm()) {
       // Handle form submission (e.g., save data, make API call)
       console.log("Form submitted successfully!");
@@ -131,8 +129,7 @@ const Checkout = () => {
   };
 
   return (
-    <>
-      <div>
+      <div className={style.checkout}>
         <section className={style.cartItem}>
           <div>
             <h2>{selectedProduct?.name}</h2>
@@ -146,85 +143,22 @@ const Checkout = () => {
           </div>
           <img src={selectedProduct?.image} className={style.productImage} />
         </section>
-        <section>
-          <form className={style.submitForm} onSubmit={handleSubmit}>
-            <div className={style.inputGroup}>
-              <label htmlFor="nameInput">الاسم</label>
-              <input
-                type="text"
-                name="name"
-                id="nameInput"
-                value={name}
-                onChange={(e) => handleChange(e, "name")}
-                onBlur={() => handleBlur("name")}
-                className={errors.name ? style.invalidInput : ""}
-              />
-              {errors.name && touched.name && (
-                <p className={style.error}>{errors.name}</p>
-              )}
-            </div>
-            <div className={style.inputGroup}>
-              <label htmlFor="phoneInput">رقم الهاتف</label>
-              <input
-                type="text"
-                name="phone"
-                id="phoneInput"
-                value={phone}
-                onChange={(e) => handleChange(e, "phone")}
-                onBlur={() => handleBlur("phone")}
-                className={errors.phone ? style.invalidInput : ""}
-              />
-              {errors.phone && touched.phone && (
-                <p className={style.error}>{errors.phone}</p>
-              )}
-            </div>
-            <div className={style.inputGroup}>
-              <label htmlFor="cityInput">المدينة</label>
-              <select
-                name="city"
-                id="cityInput"
-                value={city}
-                onChange={(e) => handleChange(e, "city")}
-                onBlur={() => handleBlur("city")}
-                className={errors.city ? style.invalidInput : ""}
-              >
-                <option value="null" disabled>
-                  --اختر--
-                </option>
-                <option value="amman">عمان</option>
-                <option value="zarqa">الزرقاء</option>
-                <option value="irbid">اربد</option>
-                <option value="albalqa">البلقاء</option>
-                <option value="madaba">مادبا</option>
-                <option value="jarash">جرش</option>
-                <option value="ajloun">عجلون</option>
-                <option value="mafraq">المفرق</option>
-                <option value="karak">الكرك</option>
-                <option value="tafilah">الطفيلة</option>
-                <option value="maan">معان</option>
-                <option value="aqaba">العقبة</option>
-              </select>
-              {errors.city && touched.city && (
-                <p className={style.error}>{errors.city}</p>
-              )}
-            </div>
-            <div className={style.inputGroup}>
-              <label htmlFor="regionInput">المنطقة</label>
-              <input
-                type="text"
-                name="region"
-                id="regionInput"
-                value={region}
-                onChange={(e) => handleChange(e, "region")}
-                onBlur={() => handleBlur("region")}
-                className={errors.region ? style.invalidInput : ""}
-              />
-              {errors.region && touched.region && (
-                <p className={style.error}>{errors.region}</p>
-              )}
-            </div>
-          </form>
-        </section>
+
+        <CheckoutForm
+          name={name}
+          setName={setName}
+          phone={phone}
+          setPhone={setPhone}
+          city={city}
+          setCity={setCity}
+          region={region}
+          setRegion={setRegion}
+          errors={errors}
+          touched={touched}
+          handleChange={handleChange}
+          handleBlur={handleBlur}
+        />
+
         <section>
           <div className={style.receiptDetails}>
             <div className={style.receiptItem}>
@@ -244,12 +178,12 @@ const Checkout = () => {
             <span>{quantity * selectedProduct?.price! + 2}د.أ</span>
           </div>
         </section>
+
         <button type="submit" className="btn btn-primary" disabled>
           تأكيد الطلب
         </button>
         <span className="error-msg">الطلب غير متوفر حاليا، سيتم توفير المنتج في اقرب وقت</span>
       </div>
-    </>
   );
 };
 
