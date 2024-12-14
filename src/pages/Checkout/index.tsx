@@ -244,9 +244,10 @@ const Checkout = () => {
             <span>{quantity * selectedProduct?.price! + 2}د.أ</span>
           </div>
         </section>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary" disabled>
           تأكيد الطلب
         </button>
+        <span className="error-msg">الطلب غير متوفر حاليا، سيتم توفير المنتج في اقرب وقت</span>
       </div>
     </>
   );

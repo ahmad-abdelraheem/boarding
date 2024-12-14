@@ -6,3 +6,8 @@
 body {
   overflow: hidden;
 }
+
+.error-msg {
+  font-size: 14px;
+  color: red;
+}
