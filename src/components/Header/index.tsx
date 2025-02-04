@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <div className={style.header}>
       <Link to='/' className={style.brand}>
-        <img src="src/assets/text3D.png" />
+        <img src="/text3D.png" />
       </Link>
     </div>
   );

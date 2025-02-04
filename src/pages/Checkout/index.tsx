@@ -203,13 +203,13 @@ const Checkout = () => {
           <div className={style.modalBody}>
             {requestStatus === RequestStatus.LOADING && (
               <>
-                <img src="src/assets/loading.png" className={style.loading} />
+                <img src="/loading.png" className={style.loading} />
                 <span>جاري تأكيد الطلب...</span>
               </>
             )}
             {requestStatus === RequestStatus.SUCCESSED && (
               <>
-                <img src="src/assets/check.png" />
+                <img src="/check.png" />
                 <span>تم الطلب بنجاح</span>
               </>
             )}
@@ -237,7 +237,7 @@ const Checkout = () => {
             maximum={selectedProduct?.quantity!}
           />
         </div>
-        <img src="src/assets/product.jpeg" className={style.productImage} />
+        <img src="/product.jpeg" className={style.productImage} />
       </section>
 
       <CheckoutForm

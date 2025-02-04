@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 
 const Home = () => {
   const items = [
-    "src/assets/product.jpeg",
+    "/product.jpeg",
     "https://storage.googleapis.com/bosta-files/products_images/OTQyMjZfXzIwMjQtMDgtMTdUMTc6NDI6MTUuNDMyWl8oMikuanBn.jpg",
   ];
   const [products, setProducts ] = useState<Product[]>([]);
