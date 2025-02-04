@@ -22,8 +22,6 @@ export class ProductService {
   async getProduct(index: number) {
     if(!this.products)
       await this.loadProducts();
-    console.log(index);
-    console.log(this.products)
     return this.products?.[index];
   }
 }

@@ -48,7 +48,6 @@ const Checkout = () => {
   useEffect(() => {
     const getSelected = async () => {
       const res = await ProductService.instance().getProduct(selection);
-      console.log("res: ", res);
       setSelectedProduct(res);
     };
 

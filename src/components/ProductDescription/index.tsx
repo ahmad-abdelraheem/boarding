@@ -3,10 +3,6 @@ import { Product } from "../../types";
 import style from "./ProductDescription.module.scss"
 const ProductDescription = ({ product }: DefaultProps) => {
 
-  useEffect(() => {
-    console.log('product from ProductDescription: ', product)
-  }, [product])
-
   return (
     <div className={style.productDescription}>
       <h2>وصف المنتج</h2>

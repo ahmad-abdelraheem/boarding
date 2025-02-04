@@ -20,7 +20,6 @@ const Home = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      console.log('from fetching effect');
       await ProductService.instance().loadProducts();
       const res = ProductService.instance().Products;
       setProducts(res!);
@@ -34,7 +33,6 @@ const Home = () => {
 
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 600);
   useEffect(() => {
-    console.log("isDesktop effect");
     const handleResize = () => {
       setIsDesktop(window.innerWidth > 600);
     };
