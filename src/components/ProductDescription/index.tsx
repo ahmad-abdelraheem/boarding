@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Product } from "../../types";
 import style from "./ProductDescription.module.scss"
 const ProductDescription = ({ product }: DefaultProps) => {
