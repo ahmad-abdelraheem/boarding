@@ -1,9 +1,10 @@
 import style from "../../pages/Checkout/Checkout.module.scss";
+import { ShippingFee } from "../../pages/Checkout";
 
 interface CheckoutFormProps {
   name: string;
   phone: string;
-  city: string;
+  city: number;
   region: string;
   errors: {
     name: string;
@@ -17,6 +18,7 @@ interface CheckoutFormProps {
     city: boolean;
     region: boolean;
   };
+  shippingFees: ShippingFee[],
   handleChange: (
     e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>,
     field: "name" | "phone" | "city" | "region"
@@ -31,9 +33,11 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({
   region,
   errors,
   touched,
+  shippingFees,
   handleChange,
   handleBlur,
 }) => {
+
   return (
     <form className={style.submitForm}>
       <div className={style.inputGroup}>
@@ -76,21 +80,10 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({
           onBlur={() => handleBlur("city")}
           className={errors.city ? style.invalidInput : ""}
         >
-          <option value="null" disabled>
+          <option value="-1" disabled>
             --اختر--
           </option>
-          <option value="amman">عمان</option>
-          <option value="zarqa">الزرقاء</option>
-          <option value="irbid">اربد</option>
-          <option value="albalqa">البلقاء</option>
-          <option value="madaba">مادبا</option>
-          <option value="jarash">جرش</option>
-          <option value="ajloun">عجلون</option>
-          <option value="mafraq">المفرق</option>
-          <option value="karak">الكرك</option>
-          <option value="tafilah">الطفيلة</option>
-          <option value="maan">معان</option>
-          <option value="aqaba">العقبة</option>
+          {shippingFees?.map(fee => <option value={fee.id} key={`${fee.city}-option`}>{fee.city}</option>)}
         </select>
         {errors.city && touched.city && (
           <p className={style.error}>{errors.city}</p>

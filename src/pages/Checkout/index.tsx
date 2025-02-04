@@ -1,20 +1,65 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NumricInput from "../../components/NumricInput";
 import { useProductContext } from "../../context/ProductContext";
 import { ProductService } from "../../service/ProductService";
 import { useNavigate } from "react-router-dom";
 import style from "./Checkout.module.scss";
 import CheckoutForm from "../../components/CheckoutForm/CheckoutForm";
+import { Product } from "../../types";
+import axios from "axios";
+import SocialLinks from "../../components/SocialLinks";
+import classNames from "classnames";
+
+export interface ShippingFee {
+  id: number;
+  city: string;
+  fee: number;
+}
+
+enum RequestStatus {
+  IDEAL = 0,
+  LOADING = 1,
+  FAILED = 2,
+  SUCCESSED = 3,
+}
 
 const Checkout = () => {
   const { quantity, setQuantity, selection } = useProductContext();
-  const selectedProduct = ProductService._constructor().getProduct(selection);
+  const [selectedProduct, setSelectedProduct] = useState<Product | undefined>(
+    undefined
+  );
+  const [shippingFees, setShippingFees] = useState<ShippingFee[]>([]);
+  const [shippingFee, setShippingFee] = useState(0);
+  const [requestStatus, setRequestStatus] = useState(RequestStatus.IDEAL);
+  useEffect(() => {
+    const fetchFees = async () => {
+      const res = (
+        await axios.get(
+          "https://x8ki-letl-twmt.n7.xano.io/api:ZKCWC-RM/shipping"
+        )
+      ).data;
+
+      setShippingFees(res);
+    };
+
+    fetchFees();
+  }, []);
+
+  useEffect(() => {
+    const getSelected = async () => {
+      const res = await ProductService.instance().getProduct(selection);
+      console.log("res: ", res);
+      setSelectedProduct(res);
+    };
+
+    getSelected();
+  }, []);
   const navigate = useNavigate();
 
   // Form state
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [city, setCity] = useState("");
+  const [city, setCity] = useState(-1);
   const [region, setRegion] = useState("");
 
   // Error state
@@ -49,11 +94,7 @@ const Checkout = () => {
   // Phone number validation function
   const validatePhoneNumber = (phone: string) => {
     const localPhonePattern = /^07[789]\d{7}$/; // Matches 07 followed by 7, 8, or 9 and 7 more digits
-    const internationalPhonePattern = /^(00962|\+962)[7-9]\d{7}$/; // Matches +962 or 00962 followed by 7, 8, or 9 and 7 more digits
-
-    return (
-      localPhonePattern.test(phone) || internationalPhonePattern.test(phone)
-    );
+    return localPhonePattern.test(phone);
   };
 
   // Validation function
@@ -69,7 +110,7 @@ const Checkout = () => {
     if (!phone.trim()) {
       newErrors.phone = "رقم الهاتف مطلوب";
     } else if (!validatePhoneNumber(phone)) {
-      newErrors.phone = "رقم الهاتف غير صالح (يجب أن يبدأ بـ 07 أو +962/00962)";
+      newErrors.phone = "رقم الهاتف غير صالح (يجب أن يبدأ بـ 07)";
       isValid = false;
     }
 
@@ -100,13 +141,20 @@ const Checkout = () => {
    * @returns void
    */
   const handleChange = (
-    e: React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>,
+    e:
+      | React.ChangeEvent<HTMLSelectElement>
+      | React.ChangeEvent<HTMLInputElement>,
     field: "name" | "phone" | "city" | "region"
   ): void => {
-    const value: string = e.target.value;
+    const value: string | number = e.target.value;
     if (field === "name") setName(value);
     if (field === "phone") setPhone(value);
-    if (field === "city") setCity(value);
+    if (field === "city") {
+      setCity(Number(value));
+      setShippingFee(
+        shippingFees.find((f) => f.id === Number(value))?.fee ?? 0
+      );
+    }
     if (field === "region") setRegion(value);
 
     // Validate when value changes if the field was already touched and invalid
@@ -120,65 +168,113 @@ const Checkout = () => {
    * @param e the React.FormEvent<HTMLFormElement> event
    * @returns void
    */
-  const handleSubmit = (): void => {
+  const handleSubmit = async (): Promise<void> => {
     if (validateForm()) {
-      // TODO : Call the API here to post the order
-      console.warn("Form is submitted, but no API call is made");
+      const order = {
+        name: name,
+        phone_number: phone,
+        city: city,
+        address: region,
+        game_id: selectedProduct?.id,
+        quantity: quantity,
+        status: "OPEN",
+      };
+      setRequestStatus(RequestStatus.LOADING);
+      try {
+        await axios.post(
+          "https://x8ki-letl-twmt.n7.xano.io/api:RBbVK1Ck/order",
+          order
+        );
+        setRequestStatus(RequestStatus.SUCCESSED);
+        setTimeout(() => {
+          navigate("home");
+        }, 3000);
+      } catch (error) {
+        setRequestStatus(RequestStatus.FAILED);
+      }
     }
   };
 
   return (
-      <div className={style.checkout}>
-        <section className={style.cartItem}>
-          <div>
-            <h2>{selectedProduct?.name}</h2>
-            <span>{selectedProduct?.price} د.أ</span>
-            <NumricInput
-              value={quantity}
-              increment={incrementQuantity}
-              decrement={decrementQuantity}
-              removeWhenZero={true}
-            />
+    <div className={style.checkout}>
+      {(requestStatus === RequestStatus.LOADING ||
+        requestStatus === RequestStatus.SUCCESSED) && (
+        <div className={style.modal}>
+          <div className={style.modalBody}>
+            {requestStatus === RequestStatus.LOADING && (
+              <>
+                <img src="src/assets/loading.png" className={style.loading} />
+                <span>جاري تأكيد الطلب...</span>
+              </>
+            )}
+            {requestStatus === RequestStatus.SUCCESSED && (
+              <>
+                <img src="src/assets/check.png" />
+                <span>تم الطلب بنجاح</span>
+              </>
+            )}
           </div>
-          <img src={selectedProduct?.image} className={style.productImage} />
-        </section>
-
-        <CheckoutForm
-          name={name}
-          phone={phone}
-          city={city}
-          region={region}
-          errors={errors}
-          touched={touched}
-          handleChange={handleChange}
-          handleBlur={handleBlur}
-        />
-
-        <section>
-          <div className={style.receiptDetails}>
-            <div className={style.receiptItem}>
-              <h4>{selectedProduct?.name}</h4>
-              <span>
-                {quantity * selectedProduct?.price!}د.أ ({quantity} *{" "}
-                {selectedProduct?.price!})
-              </span>
-            </div>
-            <div className={style.receiptItem}>
-              <h4>توصيل خلال 48 ساعة</h4>
-              <span>2د.أ</span>
-            </div>
+        </div>
+      )}
+      {requestStatus === RequestStatus.FAILED && (
+        <div className={classNames(style.modal, style.bgModal)}>
+          <div className={style.modalBody}>
+            <span>حدث خطأ ما</span>
+            <span>تواصل معنا عبر المنصات الاتية</span>
+            <SocialLinks />
           </div>
-          <div className={style.receiptSummary + " " + style.receiptItem}>
-            <h4>المجموع</h4>
-            <span>{quantity * selectedProduct?.price! + 2}د.أ</span>
-          </div>
-        </section>
+        </div>
+      )}
+      <section className={style.cartItem}>
+        <div>
+          <h2>{selectedProduct?.name || "صاحب صاحبه"}</h2>
+          <span>{selectedProduct?.price ?? 10} د.أ</span>
+          <NumricInput
+            value={quantity}
+            increment={incrementQuantity}
+            decrement={decrementQuantity}
+            removeWhenZero={true}
+            maximum={selectedProduct?.quantity!}
+          />
+        </div>
+        <img src="src/assets/product.jpeg" className={style.productImage} />
+      </section>
 
-        <button type="submit" className="btn btn-primary" onClick={handleSubmit} disabled>
-          تأكيد الطلب
-        </button>
-        <span className="error-msg">الطلب غير متوفر حاليا، سيتم توفير المنتج في اقرب وقت</span>
-      </div>
+      <CheckoutForm
+        name={name}
+        phone={phone}
+        city={city}
+        region={region}
+        errors={errors}
+        touched={touched}
+        shippingFees={shippingFees}
+        handleChange={handleChange}
+        handleBlur={handleBlur}
+      />
+      <section>
+        <div className={style.receiptDetails}>
+          <div className={style.receiptItem}>
+            <h4>{selectedProduct?.name}</h4>
+            <span>
+              {quantity * selectedProduct?.price!}د.أ ({quantity} *{" "}
+              {selectedProduct?.price!})
+            </span>
+          </div>
+          <div className={style.receiptItem}>
+            <h4>توصيل خلال 48 ساعة</h4>
+            <span>{shippingFee}د.أ</span>
+          </div>
+        </div>
+        <div className={style.receiptSummary + " " + style.receiptItem}>
+          <h4>المجموع</h4>
+          <span>{quantity * selectedProduct?.price! + shippingFee}د.أ</span>
+        </div>
+      </section>
+
+      <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
+        تأكيد الطلب
+      </button>
+    </div>
   );
 };
 

@@ -1,6 +1,5 @@
 import ImageCarousel from "../../components/ImageViewer";
 import InfoBlock from "../../components/InfoBlock";
-import OptionGroup from "../../components/OptionGroup";
 import ProductDescription from "../../components/ProductDescription";
 import { Product } from "../../types";
 import NumericInput from "../../components/NumricInput";
@@ -14,12 +13,23 @@ import { useEffect, useState } from "react";
 
 const Home = () => {
   const items = [
-    "https://storage.googleapis.com/bosta-files/products_images/NTcwNjEyX18yMDI0LTExLTA0VDE0OjE5OjIyLjYzN1pfMTAuanBn.jpg",
-    "https://storage.googleapis.com/bosta-files/products_images/NjIyOTQzX18yMDI0LTExLTA0VDE0OjE5OjI3LjY2NVpfMi5qcGc=.jpg",
+    "src/assets/product.jpeg",
     "https://storage.googleapis.com/bosta-files/products_images/OTQyMjZfXzIwMjQtMDgtMTdUMTc6NDI6MTUuNDMyWl8oMikuanBn.jpg",
   ];
-  const products: Product[] = ProductService._constructor().Products;
-  const { selection, setSelection, quantity, setQuantity } =
+  const [products, setProducts ] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      console.log('from fetching effect');
+      await ProductService.instance().loadProducts();
+      const res = ProductService.instance().Products;
+      setProducts(res!);
+    };
+    
+    fetchProducts();
+  }, []);
+
+  const { selection, quantity, setQuantity } =
     useProductContext();
 
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 600);
@@ -33,10 +43,6 @@ const Home = () => {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  const selectionHandler = (index: number) => {
-    setSelection(index);
-  };
   const quantityIncrement = () => {
     setQuantity(quantity + 1);
   };
@@ -84,17 +90,8 @@ const Home = () => {
       <section className={cx(style.socialLinks, "page-section")}>
         <SocialLinks />
       </section>
-      <section className={cx(style.options, "page-section")}>
-        <OptionGroup
-          selectedOption={selection}
-          options={products}
-          selectHandler={selectionHandler}
-        >
-          <h2>اكثر من خيار، شو بناسبك؟</h2>
-        </OptionGroup>
-      </section>
       <section className={cx(style.description, "page-section")}>
-        <ProductDescription product={products[selection]} />
+        <ProductDescription product={products[0]} />
       </section>
     </>
   );
@@ -107,6 +104,7 @@ const Home = () => {
             increment={quantityIncrement}
             decrement={quantityDecrement}
             removeWhenZero={false}
+            maximum={products[selection]?.quantity}
           />
           <Link className="btn btn-primary" to={"/checkout"}>
             اطلب الان

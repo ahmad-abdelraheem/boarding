@@ -3,11 +3,11 @@ import style from "./footer.module.scss";
 const Footer = () => {
   return (
     <footer className={style.footer}>
-      <section className={style.footerTitle}>
+      <section className={style.footerTitle} style={{justifyContent: "center"}}>
         <h1>BOARDING</h1>
       </section>
 
-      <section className={style.contactInfo}>
+      <section className={style.contactInfo} style={{justifyContent: "center"}}>
         <p>phone number: 07 7587 8389</p>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -19,11 +19,8 @@ const Footer = () => {
         </svg>
       </section>
 
-      <section className={style.copyrights}>
+      <section className={style.copyrights} style={{justifyContent: "center"}}>
       <p>all copyrights reserved &copy;</p>
-      </section>
-      <section className={style.credits}>
-        <p>powered by: <a href="https://www.linkedin.com/in/ahmad-abdelraheem-26a56630b/">Ahmad Abdalraheem</a>, <a href="https://www.linkedin.com/in/mohammed-aliz/">Mohammad Hanoun</a></p>
       </section>
     </footer>
   );

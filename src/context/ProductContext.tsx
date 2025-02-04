@@ -24,7 +24,7 @@ export const useProductContext = () => {
 export const ProductProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [selection, setSelection] = useState(1);
+  const [selection, setSelection] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
   return (
